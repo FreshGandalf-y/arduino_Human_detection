@@ -13,7 +13,7 @@ const serveport = 6070;
 SerialPortlist
 
 const serialport = new SerialPort({
-  path: '/dev/tty.usbmodem101', 
+  path: '/dev/tty.usbserial',
   baudRate:9600,
   bindings: Bindings
 });
@@ -26,13 +26,13 @@ serialport.on('data', data => {
   const lastsignal = data.toString();
   console.log(lastsignal);
 
-  fs.readFile('humanDetecData.txt', (err, data) => {
+  fs.readFile('humanDetectData.txt', (err, data) => {
     if (err) {
       console.err(err);
     } else {
       var filedata = data;
       const newData = filedata + lastsignal;
-      fs.writeFile('humanDetecData.txt', newData, (err) => {
+      fs.writeFile('humanDetectData.txt', newData, (err) => {
         if (err) {
           console.err(err);
         } else {
@@ -75,7 +75,9 @@ const server = http.createServer(function (req, res) {
       };
     });
 
-  };
+  } else {
+    res.statusCode = 404;
+  }
 });
 
 setupWebSocket(server);

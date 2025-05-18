@@ -28,23 +28,21 @@ function setupWebSocket(server) {
     function sendData(arg, err) {
       console.log('response:')
       if (arg.type === 'requestHuData') {
-      fs.readFile('humanDetecData.txt', (err, data) => {
-        if (err) {
-          console.err(error);
-        } else {
-        ws.send(JSON.stringify({type: 'responseHuData', data}));
-        console.log('data is shipped')
+        fs.readFile('humanDetectData.txt', 'utf8', (err, data) => {
+          if (err) {
+            console.err(error);
+          } else {
+            const splitData = data.split("\r\n");
+            
+            ws.send(JSON.stringify({type: 'responseHuData', resData: splitData}));
+            console.log('data is shipped')
+          };
+        });
+      } else if (err) {
+        console.log('something went wrong with sendData');
       };
-    });
-
-  } else if (err) {
-    console.log('something went wrong with sendData')
-  };
-};
-
-
-
+    };
   });
-}
+};
 
 module.exports = { setupWebSocket };
