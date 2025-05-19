@@ -4,7 +4,7 @@
 
 ### How did we build it ? 
 
-We connect a _____________ to a Arduino UNO and flashed the firmware (you can find on github.com/......./......).
+We connect a HC sr04 to a Arduino UNO and flashed the firmware you can find in the Repo
 
 In this project is a serial-stream build in which write data in the humanDetectData.txt.
 The web server can be found under localhost/6070
